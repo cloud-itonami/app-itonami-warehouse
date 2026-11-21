@@ -56,7 +56,7 @@
    :app/name "etzhayyim-project-warehouse"
    :app/kind "cloudflare surface"
    :app/route-count 2
-   :app/routes ["w4r3h0u5.etzhayyim.com/*" "warehouse.etzhayyim.com/*"]
+   :app/routes ["w4r3h0u5.itonami.app/*" "warehouse.itonami.app/*"]
    :app/vars ["AGENTGATEWAY_MCP_ROUTER_URL" "APP_CAPABILITIES" "APP_DESCRIPTION"
               "APP_DISPLAY_NAME" "APP_FRAMEWORK" "APP_NANOID" "APP_PERFORMER_TYPE"
               "APP_UI_TYPE"]

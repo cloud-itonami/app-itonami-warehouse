@@ -16,7 +16,7 @@
     (is (= "etzhayyim-project-warehouse" @(rf/subscribe [:app/project])))
     (is (= "cloudflare surface" @(rf/subscribe [:app/kind])))
     (is (= 2 @(rf/subscribe [:app/route-count])))
-    (is (= ["w4r3h0u5.etzhayyim.com/*" "warehouse.etzhayyim.com/*"]
+    (is (= ["w4r3h0u5.itonami.app/*" "warehouse.itonami.app/*"]
            @(rf/subscribe [:app/routes])))
     (is (= 8 (count @(rf/subscribe [:app/vars]))))
     (is (false? @(rf/subscribe [:app/xrpc?])))

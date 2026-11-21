@@ -1,6 +1,6 @@
 {
   "@context": "https://etzhayyim.com/ns/kotodama/v1",
-  "@id": "did:web:warehouse.etzhayyim.com",
+  "@id": "did:web:warehouse.itonami.app",
   "name": "warehouse",
   "nanoid": "w4r3h0u5",
   "project": "warehouse",
