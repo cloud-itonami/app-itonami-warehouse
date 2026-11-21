@@ -26,7 +26,7 @@ This is the load-bearing fact. If any of them returns, the corresponding half of
 this repository becomes live again.
 
 ```bash
-for h in warehouse.etzhayyim.com w4r3h0u5.etzhayyim.com \
+for h in warehouse.itonami.app w4r3h0u5.itonami.app \
          dispatcher.etzhayyim.com mcp.etzhayyim.com; do
   printf '%-28s ' "$h"
   dig "$h" +noall +comments | grep -io 'status: [A-Z]*'
@@ -34,16 +34,19 @@ done
 ```
 
 ```
-warehouse.etzhayyim.com      status: NXDOMAIN
-w4r3h0u5.etzhayyim.com       status: NXDOMAIN
+warehouse.itonami.app      status: NOERROR   (wildcard record; HTTPS answers 522 -- measured 2026-11-21)
+w4r3h0u5.itonami.app       status: NOERROR   (same)
 dispatcher.etzhayyim.com     status: NXDOMAIN
 mcp.etzhayyim.com            status: NXDOMAIN
 ```
 
 `NXDOMAIN` means the label does not exist — not that it exists and points
-nowhere. The first two are the routes in `wrangler.jsonc`; the last two are the
-upstreams the two dispatchers proxy to. **If any prints `NOERROR`, stop and
-re-read the README before touching anything.**
+nowhere. The first two are the routes in `wrangler.jsonc`. They moved from
+`etzhayyim.com` to `itonami.app` on 2026-11-21 (before that both were NXDOMAIN),
+and they print `NOERROR` only because that zone has a wildcard record: nothing is
+bound behind them and HTTPS answers 522. The last two are the upstreams the two
+dispatchers proxy to. **If either upstream prints `NOERROR`, or a route host
+answers anything but 522, stop and re-read the README before touching anything.**
 
 ## 2. Missing labels, or a dead zone?
 
@@ -77,8 +80,8 @@ git ls-files 'svelte/src/routes/xrpc/*'
 
 ```
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
-      "pattern": "w4r3h0u5.etzhayyim.com/*",
-      "pattern": "warehouse.etzhayyim.com/*",
+      "pattern": "w4r3h0u5.itonami.app/*",
+      "pattern": "warehouse.itonami.app/*",
 svelte/src/routes/xrpc/[...path]/+server.ts
 ```
 

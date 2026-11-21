@@ -37,12 +37,12 @@
   },
   "routes": [
     {
-      "pattern": "w4r3h0u5.etzhayyim.com/*",
-      "zone_name": "etzhayyim.com"
+      "pattern": "w4r3h0u5.itonami.app/*",
+      "zone_name": "itonami.app"
     },
     {
-      "pattern": "warehouse.etzhayyim.com/*",
-      "zone_name": "etzhayyim.com"
+      "pattern": "warehouse.itonami.app/*",
+      "zone_name": "itonami.app"
     }
   ],
   "assets": {

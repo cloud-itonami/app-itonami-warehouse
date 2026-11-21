@@ -1,7 +1,7 @@
 # app-warehouse
 
 **A dormant WMS edge surface.** This repository holds the Cloudflare Worker that
-was to serve `warehouse.etzhayyim.com` — a warehouse-management layer exposing
+was to serve `warehouse.itonami.app` — a warehouse-management layer exposing
 four XRPC methods (`registerSku`, `putaway`, `pick`, `getInventory`) as a thin
 edge in front of business logic hosted elsewhere. It was extracted verbatim from
 `etzhayyim/root:60-apps/etzhayyim-project-warehouse`.
@@ -57,10 +57,10 @@ record), but any path under `svelte/` it names no longer exists.
 
 | What this repo assumes | What is true now |
 |---|---|
-| `wrangler.jsonc` routes `warehouse.etzhayyim.com/*` and `w4r3h0u5.etzhayyim.com/*` | Both are **NXDOMAIN**. No record at all, not a stale route. |
+| `wrangler.jsonc` routes `warehouse.itonami.app/*` and `w4r3h0u5.itonami.app/*` | Both resolve through the `itonami.app` wildcard record and answer **522** — no Worker is bound (measured 2026-11-21). Before the routes moved from `etzhayyim.com` that day, both labels were NXDOMAIN. |
 | `src/app.ts` proxies to `https://dispatcher.etzhayyim.com` | **NXDOMAIN.** |
 | `svelte/src/routes/xrpc/[...path]/+server.ts` proxies to `https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` | **NXDOMAIN.** |
-| `kotodama.jsonld` declares the actor `did:web:warehouse.etzhayyim.com` | A `did:web` DID resolves over HTTPS at that host. The host does not resolve, so **the DID is unresolvable**. |
+| `kotodama.jsonld` declares the actor `did:web:warehouse.itonami.app` | A `did:web` DID resolves over HTTPS at that host. The host answers 522 (no Worker bound), so **the DID is unresolvable**. |
 | `migration.edn` extracted from `etzhayyim/root:60-apps/etzhayyim-project-warehouse` | `etzhayyim/root@main:60-apps` now contains exactly one entry, `etzhayyim-project-organism`. **The source path is gone from the default branch.** |
 
 The zone is served by Cloudflare (`vivienne`/`everton.ns.cloudflare.com`) and the
@@ -210,3 +210,12 @@ This is an owner decision. The options, and what each costs:
 
 Until one is chosen, this file is the correction: **nothing here is reachable,
 and the file that looks like the implementation is not the one that ships.**
+
+## Divergence from upstream (2026-11-21, JUN-1410)
+
+The owner decided to unify the domains under `itonami.app`, so the wrangler routes and the
+`did:web` identifier moved from `etzhayyim.com` to `itonami.app`. This app is not deployed and the old
+identifier never resolved. The new hosts (`w4r3h0u5.itonami.app`, `warehouse.itonami.app`) resolve through the `itonami.app`
+wildcard record but answer 522, because no Worker is bound (measured 2026-11-21).
+
+Unchanged: other services' hostnames, the lexicon namespace, and `docs/adr/` (the record of that time).
